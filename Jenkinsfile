@@ -18,7 +18,7 @@ pipeline {
                 sh 'python3 hello_world.py'
             }
         }
-    }
+    
 
     post {
         success {
@@ -27,5 +27,6 @@ pipeline {
         failure {
             echo 'Failed to execute Python script.'
         }
+     }    
     
 }
