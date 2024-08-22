@@ -2,20 +2,41 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout Code') {
+        stage('Checkout') {
             steps {
-                // Fetch code from the specified Git repository
+                // Checkout code from your repository
                 git branch: 'master', url: 'https://github.com/hannuregit/Jenkins-webapp.git'
+            }
+        }
+
+        stage('Install Python') {
+            steps {
+                // Install Python if not already installed (optional)
+                sh '''
+                if ! command -v python3 &> /dev/null
+                then
+                    echo "Python3 could not be found, installing..."
+                    sudo apt-get update
+                    sudo apt-get install -y python3
+                fi
+                '''
+            }
+        }
+
+        stage('Run Script') {
+            steps {
+                // Run the hello_world.py script
+                sh 'python3 hello_world.py'
             }
         }
     }
 
     post {
         success {
-            echo 'Code successfully fetched from the repository!'
+            echo 'Python script executed successfully!'
         }
         failure {
-            echo 'Failed to fetch the code from the repository.'
+            echo 'Failed to execute Python script.'
         }
     }
 }
