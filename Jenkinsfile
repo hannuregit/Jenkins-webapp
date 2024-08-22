@@ -27,5 +27,5 @@ pipeline {
         failure {
             echo 'Failed to execute Python script.'
         }
-    }
+    
 }
