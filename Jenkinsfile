@@ -14,8 +14,17 @@ pipeline {
 
         stage('Run Script') {
             steps {
-                // Run the hello_world.py script
-                sh 'python3 hello_world.py'
+               // Run the hello_world.py script
+                sh '''
+                if ! command -v python3 &> /dev/null
+                then
+                    echo "Python3 could not be found, installing..."
+                    sudo apt-get update
+                    sudo apt-get install -y python3
+                fi
+                
+                python3 hello_world.py
+                '''
             }
         }
     
