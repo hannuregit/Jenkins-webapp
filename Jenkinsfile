@@ -18,7 +18,7 @@ pipeline {
   }
 }
 
-    post {
+post {
   always {
     echo "i am gonna run every single time"
   }
@@ -28,7 +28,7 @@ pipeline {
   success {
     echo "this section will execute when everything is fine"
   }
-}
+ }
 }   
     
     
