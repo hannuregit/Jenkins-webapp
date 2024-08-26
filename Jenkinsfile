@@ -7,35 +7,33 @@ pipeline {
                 // Checkout code from your repository
                 git branch: 'master', url: 'https://github.com/hannuregit/Jenkins-webapp.git'
             }
-        }
 
-        
+            
         }
-
-        stage('Run Script') {
+        stage('testing'){
+            
             steps {
-               // Run the hello_world.py script
-                sh '''
-                if ! command -v python3 &> /dev/null
-                then
-                    echo "Python3 could not be found, installing..."
-                    sudo apt-get update
-                    sudo apt-get install -y python3
-                fi
-                
-                python3 hello_world.py
-                '''
-            }
-        }
-    
+            echo "hello world"
+    }
+  }
+}
 
     post {
-        success {
-            echo 'Python script executed successfully!'
-        }
-        failure {
-            echo 'Failed to execute Python script.'
-        }
-     }    
-    
+  always {
+    echo "i am gonna run every single time"
+  }
+  failure {
+    echo "only when something fails"
+  }
+  success {
+    echo "this section will execute when everything is fine"
+  }
 }
+}   
+    
+    
+        
+        
+    
+
+    
