@@ -2,38 +2,17 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
+        stage('SAST - OWASP Dependency-Check') {
             steps {
-                // Checkout code from your repository
-                git branch: 'master', url: 'https://github.com/hannuregit/Jenkins-webapp.git'
+                echo 'Running OWASP Dependency-Check for index.html'
+
+                // Run OWASP Dependency-Check using the Jenkins plugin
+                dependencyCheck additionalArguments: '', 
+                               installation: 'OWASP Dependency-Check',  // Name of the OWASP Dependency-Check installation in Jenkins
+                               pattern: '**/*.html',  // Assuming index.html is in the root of your repository
+                               reportsDirectory: 'dependency-check-report',  // Directory to store the report
+                               skipped: false
             }
-
-            
         }
-        stage('testing'){
-            
-            steps {
-            echo "hello world"
     }
-  }
 }
-
-post {
-  always {
-    echo "i am gonna run every single time"
-  }
-  failure {
-    echo "only when something fails"
-  }
-  success {
-    echo "this section will execute when everything is fine"
-  }
- }
-}   
-    
-    
-        
-        
-    
-
-    
